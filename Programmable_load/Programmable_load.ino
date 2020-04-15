@@ -1,4 +1,7 @@
-#include <LiquidCrystal.h>
+// Author: Abhishek Tiwari 
+// Date: 15-April-2020
+
+#include <LiquidCrystal.h>   
 const int rs = 12, en = 11, d4 = 5, d5 = 4, d6 = 3, d7 = 7;  //define the LCD 16-bit interface,those pin connect to Microcontroller(12,11,5,4,3,7)
 LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
 
