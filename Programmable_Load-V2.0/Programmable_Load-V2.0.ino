@@ -193,7 +193,7 @@ if ( Mode == "CC" && reading > CurrentCutOff ) {           // Limit maximum Curr
     encoderPosition = (CurrentCutOff * 1);                 // keep encoder position value at maximum Current Limit
     lcd.setCursor(12,1);
     lcd.print("   ");                                      // 20 spaces to clear last line of LCD 
-}
+    }
 }
 
 /* ----------------------Power Level Cutoff Routine------------------------------------------ */
@@ -211,7 +211,7 @@ if ( power  > PowerCutOff ) {                                // Check if Power L
     lcd.setCursor(10,1);
     lcd.print("      ");
     toggle = false;                                         // switch Load Off
-}
+    }
 }
 /* ----------------------Select Cursor-position------------------------------------ */
 void cursorpos(void)  {
@@ -314,36 +314,31 @@ if ( sel < 100 && sel > 0 ) {
     toggle = false;                                         // switch Load OFF
     encoderPosition =0;
     Current();                                              // call current funtion to print on display
-} else
-if ( sel > 100 && sel < 199 ) {
-    delay(200);
-    digitalWrite(loadled,LOW);
-    toggle = false;                                        // switch Load OFF
-    encoderPosition = 10;
-    Power();                                               // call power funtion to print on display
-} else
-if( sel > 200 && sel < 250 ) { 
-    delay(200);
-    digitalWrite(loadled,LOW);
-    toggle = false;                                        // switch Load OFF
-    encoderPosition = 0;
-    Resistance();                                          // call resistance funtion to print on display
-} else
-if( sel > 300 && sel < 340 ) {
-    delay(300);
-    cursorpos();                                           // call cursorposition funtion to change position of cursor on display
-} else
-if( sel > 400 && sel < 699 ) {
-    delay(100);
-    loadsw();                                             // call load switch funtion to on/off the load and print on display
-} else
-if( sel >= 700 && sel < 900 ) {
-    delay(100);
-    digitalWrite(loadled,LOW);
-    toggle = false;                                       // switch Load OFF
-    encoderPosition = 50;
-    brightness();                                         // call brightness funtion to control pwm signal by which brightness means to control
-}
+    } else if ( sel > 100 && sel < 199 ) {
+        delay(200);
+        digitalWrite(loadled,LOW);
+        toggle = false;                                        // switch Load OFF
+        encoderPosition = 10;
+        Power();                                               // call power funtion to print on display
+    } else if( sel > 200 && sel < 250 ) { 
+        delay(200);
+        digitalWrite(loadled,LOW);
+        toggle = false;                                        // switch Load OFF
+        encoderPosition = 0;
+        Resistance();                                          // call resistance funtion to print on display
+    } else if( sel > 300 && sel < 340 ) {
+        delay(300);
+        cursorpos();                                           // call cursorposition funtion to change position of cursor on display
+    } else if( sel > 400 && sel < 699 ) {
+        delay(100);
+        loadsw();                                             // call load switch funtion to on/off the load and print on display
+    } else if( sel >= 700 && sel < 900 ) {
+        delay(100);
+        digitalWrite(loadled,LOW);
+        toggle = false;                                       // switch Load OFF
+        encoderPosition = 50;
+        brightness();                                         // call brightness funtion to control pwm signal by which brightness means to control
+    }
 }
 
 /* ----------------------Select average values------------------------------------ */
@@ -370,24 +365,23 @@ void read_data(void) {
 void lcd_display() {
     lcd.setCursor(0,0);
     /* completely ignore this part because of my current sensor wire get soo hot. i will improve current sensor */
-    if ( amps > 1.52 && amps < 1.65 ) {
-        amps = 1.99;
-        } else if ( amps > 2.01 && amps < 2.30 ) {
-            amps = 3.07;
-            } else if ( amps >= 2.40 && amps <= 2.52 ) {
-                amps = 4.13; 
-                } else if ( amps >= 2.89 && amps <= 2.94 ) {
-                    amps = 5.12;
-                    } else if ( amps >= 3.31 && amps <= 3.35 ) {
-                        amps = 6.02;
-                        } else if ( amps >= 3.89 && amps <= 3.94 ) {
-                            amps = 6.89;
-                            } else if ( amps > 4.00 && amps <= 4.35 ) {
-                                amps = 7.89; 
-                                } else if ( amps > 4.35 && amps <= 5.00 ) {
-                                    amps = 8.21; 
-                                    }
-
+if ( amps > 1.52 && amps < 1.65 ) {
+    amps = 1.99;
+    } else if ( amps > 2.01 && amps < 2.30 ) {
+        amps = 3.07;
+    } else if ( amps >= 2.40 && amps <= 2.52 ) {
+        amps = 4.13; 
+    } else if ( amps >= 2.89 && amps <= 2.94 ) {
+        amps = 5.12;
+    } else if ( amps >= 3.31 && amps <= 3.35 ) {
+        amps = 6.02;
+    } else if ( amps >= 3.89 && amps <= 3.94 ) {
+        amps = 6.89;
+    } else if ( amps > 4.00 && amps <= 4.35 ) {
+        amps = 7.89; 
+    } else if ( amps > 4.35 && amps <= 5.00 ) {
+        amps = 8.21; 
+    }
     lcd.print(amps,2);
     lcd.print("A ");
     lcd.setCursor(6,0);
@@ -428,4 +422,3 @@ void loop() {
     maxpow();                                                          // Check if Power Limit has been exceed
     encoderdisplay();                                                  // display encoder reading on display
 }   //loop end
-
